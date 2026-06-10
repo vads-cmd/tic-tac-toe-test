@@ -21,6 +21,7 @@ The purpose of this document is to outline the testing strategy, environment req
 * Cross-browser and cross-version testing (testing is focused on Chrome version 149.0.7827.55)
 * Cross-device mobile-native layout optimizations (testing is focused on modern desktop web viewports).
 * Third-party tracking or external analytics platforms.
+* SQL & other database injections, security checks for application
 
 ---
 
@@ -55,29 +56,69 @@ Test cases are explicitly categorized into focused functional flows and assigned
 ## 6. Test Cases Framework (Templates to Populate)
 
 ### Flow A: Authentication & Registration (Auth)
-*Placeholder area for user management scenarios. Focus areas include valid/invalid logins, duplicate accounts, and input constraint limits.*
 
-| Test Case ID | Scenario / Description | Severity | Automation? | Status |
-| :--- | :--- | :--- | :--- | :--- |
-| **TC-AUTH-001** | *[Insert clear, brief action/outcome here]* | *[Critical/Major/Minor]* | Yes/No | Pending |
-| **TC-AUTH-002** | | | | |
+| Test Case ID    | Scenario / Description                           | Severity                 | Automation? | Status |
+|:----------------|:-------------------------------------------------|:-------------------------| :--- | :--- |
+| **TC-AUTH-001** | *Player registration for new user*               | *Critical*               | Yes/No | Pending |
+| **TC-AUTH-002** | *Player login for registered user*               | *Critical*               | Yes/No | Pending |
+| **TC-AUTH-003** | *Switching between Registration and Login modes* | *Critical*                  | Yes/No | Pending |
+| **TC-AUTH-004** | *Player registration for existing user*          | *Critical*               | Yes/No | Pending |
+| **TC-AUTH-005** | *Player login for unregistered user*             | *Critical*               | Yes/No | Pending |
+| **TC-AUTH-006** | *Player registration with [blank] name*          | *Major*               | Yes/No | Pending |
+| **TC-AUTH-007** | *Player login with [blank] name*                 | *Major*               | Yes/No | Pending |
+| **TC-AUTH-008** | *Player registration with name 1 symbol long*    | *Major*               | Yes/No | Pending |
+| **TC-AUTH-009** | *Player login with name name 1 symbol long*      | *Major*               | Yes/No | Pending |
+| **TC-AUTH-010** | *Player registration with name 2 symbol long*    | *Major*               | Yes/No | Pending |
+| **TC-AUTH-011** | *Player login with name name 2 symbol long*      | *Major*               | Yes/No | Pending |
+| **TC-AUTH-012** | *Player registration with name 256 symbol long*  | *Major*               | Yes/No | Pending |
+| **TC-AUTH-013** | *Player login with name name 257 symbol long*    | *Major*               | Yes/No | Pending |
+| **TC-AUTH-014** | *Basic JS injection test*                        | *Major*                  | Yes/No | Pending |
 
 ### Flow B: Game Mechanics & Logic (Game)
-*Placeholder area for turn-based validations, row/column/diagonal winning configurations, tie-game matrices, and board resets.*
 
-| Test Case ID | Scenario / Description | Severity | Automation? | Status |
-| :--- | :--- | :--- | :--- | :--- |
-| **TC-GAME-001** | *[Insert clear, brief action/outcome here]* | *[Critical/Major/Minor]* | Yes/No | Pending |
-| **TC-GAME-002** | | | | |
+| Test Case ID    | Scenario / Description                           | Severity                 | Automation? | Status |
+|:----------------|:-------------------------------------------------|:-------------------------| :--- | :--- |
+| **TC-GAME-001** | *Game win condition*                             | *Critical*               | Yes/No | Pending |
+| **TC-GAME-002** | *Game loss condition*                            | *Critical*               | Yes/No | Pending |
+| **TC-GAME-003** | *Tie game*                                       | *Critical*               | Yes/No | Pending |
+| **TC-GAME-004** | *Changes of turn-state alteration in status bar* | *Major*                  | Yes/No | Pending |
+| **TC-GAME-005** | *Cell overwrite prevention by player*            | *Critical*               | Yes/No | Pending |
+| **TC-GAME-006** | *Cell overwrite prevention by computer*          | *Critical*               | Yes/No | Pending |
+| **TC-GAME-007** | *Difficulty selection functionality*             | *Major*                  | Yes/No | Pending |
+| **TC-GAME-008** | *Hint button functionality*                      | *Major*                  | Yes/No | Pending |
+| **TC-GAME-009** | *Hint Deactivation*                              | *Major*                       | Yes/No | Pending |
+| **TC-GAME-010** | *New game button functionality*                  | *Major* | Yes/No | Pending |
+| **TC-GAME-011** | *Reset button functionality*                     | *Major* | Yes/No | Pending |
 
 ### Flow C: Profile & User Statistics (Data)
-*Placeholder area for confirming profile edits, incrementing historical win/loss metrics, and matching database tables with the UI.*
 
-| Test Case ID | Scenario / Description | Severity | Automation? | Status |
-| :--- | :--- | :--- | :--- | :--- |
-| **TC-DATA-001** | *[Insert clear, brief action/outcome here]* | *[Critical/Major/Minor]* | Yes/No | Pending |
-| **TC-DATA-002** | | | | |
+| Test Case ID    | Scenario / Description                         | Severity                 | Automation? | Status |
+|:----------------|:-----------------------------------------------|:-------------------------| :--- | :--- |
+| **TC-DATA-001** | *Update player name successfully*              | *Critical*               | Yes/No | Pending |
+| **TC-DATA-002** | *Fail updating player name with 1 symbol name* | *Critical*               | Yes/No | Pending |
+| **TC-DATA-003** | *Fail updating player name with [blank] name*  | *Critical*               | Yes/No | Pending |
+| **TC-DATA-004** | *Real-time stat tracking (win/loss/draw)*      | *Critical*               | Yes/No | Pending |
+| **TC-DATA-005** | *Profile data persistence on logout*           | *Critical*               | Yes/No | Pending |
+| **TC-DATA-006** | *User creation data display*                   | *Minor*                  | Yes/No | Pending |
+| **TC-DATA-007** | *History log verification*                     | *Major*                  | Yes/No | Pending |
+| **TC-DATA-008** | *History chronological order*                  | *Minor*                  | Yes/No | Pending |
+| **TC-DATA-009** | *Clear history button functionality*           | *Major* | Yes/No | Pending |
 
+### Flow D: UI/UX & shared elements
+
+| Test Case ID  | Scenario / Description                               | Severity | Automation? | Status |
+|:--------------|:-----------------------------------------------------|:---------| :--- | :--- |
+| **TC-UI-001** | *User info display*                                  | *Major*  | Yes/No | Pending |
+| **TC-UI-002** | *Navigation: play button functionality*              | *Critical* | Yes/No | Pending |
+| **TC-UI-003** | *Navigation: profile button functionality*           | *Critical* | Yes/No | Pending |
+| **TC-UI-004** | *Navigation: history button functionality*           | *Critical*  | Yes/No | Pending |
+| **TC-UI-005** | *Navigation: state persistence on switch*            | *Major*  | Yes/No | Pending |
+| **TC-UI-006** | *Logout button functionality*                        | *Critical*  | Yes/No | Pending |
+| **TC-UI-007** | *SPA name display*                                   | *Minor*  | Yes/No | Pending |
+| **TC-UI-008** | *SPA subcaption display*                             | *Minor* | Yes/No | Pending |
+| **TC-UI-009** | *Language dropdown functionality*                    | *Major* | Yes/No | Pending |
+| **TC-UI-010** | *Dark/Light mode button functionality without login* | *Minor*  | Yes/No | Pending |
+| **TC-UI-011** | *Dark/Light mode button functionality with login*    | *Minor*  | Yes/No | Pending |
 ---
 
 ## 7. Execution & Exit Criteria
