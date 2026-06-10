@@ -33,6 +33,8 @@ The purpose of this document is to outline the testing strategy, environment req
 * **Front-End Interaction:** Playwright (TypeScript) will be utilized to handle application mounting, state manipulation, and UI assertions.
 * **Reporting tool:** Test run results will be added as specific files using///.
 
+### 3.3 Automatic code check tools
+* Usage of **automatic code check tools** (aka lints) like SonarLint during code submitting to repository may improve code quality and result in less errors.
 ---
 
 ## 4. Test Environment & Tools
