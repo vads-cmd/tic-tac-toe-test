@@ -59,14 +59,14 @@ export class ProfilePage extends MainMenu {
     }
 
     async cancelDeletion(): Promise<ProfilePage> {
-        this.page.on("dialog", (dialog) => {
+        this.page.once("dialog", (dialog) => {
             dialog.dismiss();
         });
         return this;
     }
 
     async confirmDeletion(): Promise<LoginPage> {
-        this.page.on("dialog", (dialog) => {
+        this.page.once("dialog", (dialog) => {
             dialog.accept();
         });
         return new LoginPage(this.page);

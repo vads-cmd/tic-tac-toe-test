@@ -73,4 +73,18 @@ export class PlayPage extends MainMenu {
         await this.cells.nth(number).click();
         return this;
     }
+
+    async confirmNewGame(): Promise<PlayPage> {
+        this.page.once("dialog", (dialog) => {
+            dialog.accept();
+        });
+        return new PlayPage(this.page);
+    }
+
+    async cancelNewGame(): Promise<PlayPage> {
+        this.page.once("dialog", (dialog) => {
+            dialog.dismiss();
+        });
+        return this;
+    }
 }

@@ -45,19 +45,19 @@ export class HistoryPage extends MainMenu {
     }
 
     async clearHistory(): Promise<HistoryPage> {
-        this.clearHistoryButton.click();
+        await this.clearHistoryButton.click();
         return this;
     }
 
     async confirmClearHistory(): Promise<HistoryPage> {
-        this.page.on("dialog", (dialog) => {
+        this.page.once("dialog", (dialog) => {
             dialog.accept();
         });
         return this;
     }
 
     async cancelClearHistory(): Promise<HistoryPage> {
-        this.page.on("dialog", (dialog) => {
+        this.page.once("dialog", (dialog) => {
             dialog.dismiss();
         });
         return this;

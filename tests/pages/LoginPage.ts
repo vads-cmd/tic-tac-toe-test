@@ -11,6 +11,7 @@ export class LoginPage extends HomePage {
     readonly loginButton: Locator;
     readonly registerButton: Locator;
     readonly pageModeSwitch: Locator;
+    readonly errorMessage: Locator;
 
     constructor(page: Page) {
         // Pass the page instance up to the BasePage
@@ -24,6 +25,7 @@ export class LoginPage extends HomePage {
         this.loginButton = page.getByTestId("btn-login");
         this.registerButton = page.getByTestId("btn-register");
         this.pageModeSwitch = page.getByTestId("btn-switch-mode");
+        this.errorMessage = page.getByTestId("auth-error");
     }
 
     async getAuthTitleText(): Promise<string | null> {
@@ -56,5 +58,8 @@ export class LoginPage extends HomePage {
     async login(): Promise<PlayPage> {
         await this.loginButton.click();
         return new PlayPage(this.page);
+    }
+    async getErrorMessage(): Promise<string | null> {
+        return await this.errorMessage.textContent();
     }
 }
