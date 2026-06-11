@@ -1,8 +1,8 @@
 import type {Locator, Page} from '@playwright/test';
-import {MainMenu} from './MainMenu.ts';
+import {AppMainPage} from './AppMainPage.ts';
 import {LoginPage} from "./LoginPage.ts";
 
-export class ProfilePage extends MainMenu {
+export class ProfilePage extends AppMainPage {
     // Define strongly-typed locators
     readonly profilePageTitle: Locator;
     readonly userNameLabel: Locator;

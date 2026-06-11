@@ -3,7 +3,7 @@ import {HomePage} from './HomePage.ts';
 import {PlayPage} from "./PlayPage.ts";
 import {LoginPage} from "./LoginPage.ts";
 
-export class MainMenu extends HomePage {
+export class AppMainPage extends HomePage {
     // Define strongly-typed locators
     readonly userAvatar: Locator;
     readonly userName: Locator;

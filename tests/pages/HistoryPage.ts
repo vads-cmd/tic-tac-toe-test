@@ -1,5 +1,5 @@
 import type {Locator, Page} from '@playwright/test';
-import {MainMenu} from './MainMenu.ts';
+import {AppMainPage} from './AppMainPage.ts';
 
 export enum TableHeaders {
     DATE = 0,
@@ -7,7 +7,7 @@ export enum TableHeaders {
     RESULT = 2
 }
 
-export class HistoryPage extends MainMenu {
+export class HistoryPage extends AppMainPage {
     // Define strongly-typed locators
     readonly historyPageTitle: Locator;
     readonly historyTable: Locator;

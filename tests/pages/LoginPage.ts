@@ -2,6 +2,11 @@ import type {Locator, Page} from '@playwright/test';
 import {HomePage} from './HomePage.ts';
 import {PlayPage} from "./PlayPage.ts";
 
+export enum StartPageType {
+    LOGIN,
+    REGISTER
+}
+
 export class LoginPage extends HomePage {
     // Define strongly-typed locators
     readonly authTitle: Locator;
@@ -49,6 +54,9 @@ export class LoginPage extends HomePage {
         await this.nameInput.fill(name);
         return this;
     }
+    async getNameInputText(): Promise<string | null> {
+        return await this.nameInput.innerText();
+    }
 
     async register(): Promise<PlayPage> {
         await this.registerButton.click();
@@ -61,5 +69,12 @@ export class LoginPage extends HomePage {
     }
     async getErrorMessage(): Promise<string | null> {
         return await this.errorMessage.textContent();
+    }
+    async checkPageType(): Promise<StartPageType> {
+        if (await this.registerButton.isVisible()) {
+            return StartPageType.REGISTER;
+        } else {
+            return StartPageType.LOGIN;
+        }
     }
 }

@@ -1,5 +1,5 @@
 import type { Locator, Page } from '@playwright/test';
-import { MainMenu } from './MainMenu.ts';
+import { AppMainPage } from './AppMainPage.ts';
 
 export enum DifficultyOptions {
     EASY = 'easy',
@@ -7,7 +7,7 @@ export enum DifficultyOptions {
     HARD = 'hard'
 }
 
-export class PlayPage extends MainMenu {
+export class PlayPage extends AppMainPage {
     // Define strongly-typed locators
     readonly difficultyLabel: Locator;
     readonly difficultyDropdown: Locator;
