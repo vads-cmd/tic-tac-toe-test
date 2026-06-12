@@ -21,7 +21,8 @@ The purpose of this document is to outline the testing strategy, environment req
 * Cross-browser and cross-version testing (testing is focused on Chrome version 149.0.7827.55)
 * Cross-device mobile-native layout optimizations (testing is focused on modern desktop web viewports).
 * Third-party tracking or external analytics platforms.
-* SQL, JS & other injections, security checks for application & data validation
+* SQL, JS & other injections, security checks for application & data validation.
+* Localisation tests. It is important for the project and these tests should be added ASAP.
 
 ---
 
