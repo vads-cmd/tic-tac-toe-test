@@ -1,5 +1,6 @@
 import type {Locator, Page} from '@playwright/test';
-import {AppMainPage} from './AppMainPage.ts';
+import {MainMenu} from './MainMenu.ts';
+import {HomePage} from "./HomePage.ts";
 
 export enum TableHeaders {
     DATE = 0,
@@ -7,13 +8,14 @@ export enum TableHeaders {
     RESULT = 2
 }
 
-export class HistoryPage extends AppMainPage {
+export class HistoryPage extends HomePage {
     // Define strongly-typed locators
     readonly historyPageTitle: Locator;
     readonly historyTable: Locator;
     readonly historyTableHeaders: Locator;
     readonly historyTableRows: Locator;
     readonly clearHistoryButton: Locator;
+    readonly mainMenu: MainMenu;
 
     constructor(page: Page) {
         // Pass the page instance up to the BasePage
@@ -25,6 +27,7 @@ export class HistoryPage extends AppMainPage {
         this.historyTableHeaders = page.locator(".table tr th");
         this.historyTableRows = page.locator(".table tbody tr");
         this.clearHistoryButton = page.getByTestId("btn-clear-history");
+        this.mainMenu = new MainMenu(page);
     }
 
     async getHistoryPageTitleText(): Promise<string | null> {

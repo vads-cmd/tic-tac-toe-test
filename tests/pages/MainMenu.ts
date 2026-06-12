@@ -1,9 +1,11 @@
 import type {Locator, Page} from '@playwright/test';
 import {HomePage} from './HomePage.ts';
-import {PlayPage} from "./PlayPage.ts";
 import {LoginPage} from "./LoginPage.ts";
+import {ProfilePage} from "./ProfilePage.ts";
+import {PlayPage} from "./PlayPage.ts";
+import {HistoryPage} from "./HistoryPage.ts";
 
-export class AppMainPage extends HomePage {
+export class MainMenu extends HomePage {
     // Define strongly-typed locators
     readonly userAvatar: Locator;
     readonly userName: Locator;
@@ -32,6 +34,16 @@ export class AppMainPage extends HomePage {
     async openPlayTab(): Promise<PlayPage> {
         await this.playButton.click();
         return new PlayPage(this.page);
+    }
+
+    async openProfileTab(): Promise<ProfilePage> {
+        await this.profileButton.click();
+        return new ProfilePage(this.page);
+    }
+
+    async openHistoryTab(): Promise<HistoryPage> {
+        await this.historyButton.click();
+        return new HistoryPage(this.page);
     }
 
     async logout(): Promise<LoginPage> {

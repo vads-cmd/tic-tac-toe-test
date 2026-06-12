@@ -1,5 +1,6 @@
 import type { Locator, Page } from '@playwright/test';
-import { AppMainPage } from './AppMainPage.ts';
+import {HomePage} from "./HomePage.ts";
+import {MainMenu} from "./MainMenu.ts";
 
 export enum DifficultyOptions {
     EASY = 'easy',
@@ -7,7 +8,7 @@ export enum DifficultyOptions {
     HARD = 'hard'
 }
 
-export class PlayPage extends AppMainPage {
+export class PlayPage extends HomePage {
     // Define strongly-typed locators
     readonly difficultyLabel: Locator;
     readonly difficultyDropdown: Locator;
@@ -17,6 +18,7 @@ export class PlayPage extends AppMainPage {
     readonly hintButton: Locator;
     readonly resetButton: Locator;
     readonly cells: Locator;
+    readonly mainMenu: MainMenu;
 
     constructor(page: Page) {
         // Pass the page instance up to the BasePage
@@ -31,6 +33,7 @@ export class PlayPage extends AppMainPage {
         this.hintButton = page.getByTestId("btn-hint");
         this.resetButton = page.getByTestId("btn-reset");
         this.cells = page.locator("button.cell");
+        this.mainMenu = new MainMenu(page);
     }
 
     async getDifficultyLabelText(): Promise<string | null> {
@@ -55,6 +58,18 @@ export class PlayPage extends AppMainPage {
         return this;
     }
 
+    async waitForText(text: string): Promise<void> {
+        await this.statusBar.filter({ hasText:text}).waitFor();
+    }
+
+    async waitCompMove(): Promise<void> {
+        await this.waitForText("Your turn (X)");
+    }
+
+    async waitWinGame(): Promise<void> {
+        await this.waitForText("You win!");
+    }
+
     async startNewGame(): Promise<PlayPage> {
         await this.newGameButton.click();
         return this;
@@ -69,7 +84,7 @@ export class PlayPage extends AppMainPage {
         return await this.cells.nth(number).getAttribute('data-state');
     }
 
-    async selectCell(number: number): Promise<PlayPage> {
+    async markCell(number: number): Promise<PlayPage> {
         await this.cells.nth(number).click();
         return this;
     }
@@ -86,5 +101,67 @@ export class PlayPage extends AppMainPage {
             dialog.dismiss();
         });
         return this;
+    }
+
+    async saveGameState(): Promise<string[]> {
+        let gameState: string[] = ['','','','','','','','',''];
+        for (let i = 0; i < gameState.length; i++) {
+            gameState[i] = <string>await this.getCellValue(i);
+        }
+        return gameState;
+    }
+
+    async CheckWinStatus(): Promise<boolean> {
+        let winCell = 0;
+        let cells = await this.cells.all();
+        for (const cell of cells) {
+            const classValue = await cell.getAttribute('class');
+            if (classValue?.includes('is-win')) {
+                winCell++;
+            }
+        }
+        return winCell === 3;
+    }
+
+    async winGame(): Promise<PlayPage> {
+        //Temporary solution
+        let saveState;
+        let cellNumber = 0;
+        await this.markCell(cellNumber);
+        await this.waitCompMove();
+        saveState = await this.saveGameState();
+        if (saveState[2] != 'o') {
+            cellNumber = 2;
+            await this.markCell(cellNumber);
+        } else {
+            cellNumber = 6;
+            await this.markCell(cellNumber);
+        }
+        await this.waitCompMove();
+        saveState = await this.saveGameState();
+        if (saveState[2] === 'x' && saveState[1] != 'o') {
+            cellNumber = 1;
+            await this.markCell(cellNumber);
+            return this;
+        } else if (saveState[6] === 'x' && saveState[3] != 'o') {
+            cellNumber = 3;
+            await this.markCell(cellNumber);
+            return this;
+        } else {
+            console.log("Error!!!!");
+        }
+        await this.waitWinGame();
+        return this;
+    }
+
+    async findComputerMove(): Promise<number> {
+        await this.waitCompMove();
+        let cells = await this.saveGameState();
+        for (const cell of cells) {
+            if (cell === 'o') {
+                return cells.indexOf(cell);
+            }
+        }
+        return -1;
     }
 }

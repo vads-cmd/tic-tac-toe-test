@@ -1,8 +1,9 @@
 import type {Locator, Page} from '@playwright/test';
-import {AppMainPage} from './AppMainPage.ts';
+import {MainMenu} from './MainMenu.ts';
 import {LoginPage} from "./LoginPage.ts";
+import {HomePage} from "./HomePage.ts";
 
-export class ProfilePage extends AppMainPage {
+export class ProfilePage extends HomePage {
     // Define strongly-typed locators
     readonly profilePageTitle: Locator;
     readonly userNameLabel: Locator;
@@ -16,6 +17,7 @@ export class ProfilePage extends AppMainPage {
     readonly profileSaveAlert: Locator;
     readonly deleteAccountButton: Locator;
     readonly emptyHistory: Locator;
+    readonly mainMenu: MainMenu;
 
     constructor(page: Page) {
         // Pass the page instance up to the BasePage
@@ -34,6 +36,7 @@ export class ProfilePage extends AppMainPage {
         this.profileSaveAlert = page.getByTestId("profile-message");
         this.deleteAccountButton = page.getByTestId("btn-delete-account");
         this.emptyHistory = page.getByTestId("history-empty");
+        this.mainMenu = new MainMenu(page);
     }
 
     async getProfilePageTitleText(): Promise<string | null> {
@@ -75,6 +78,7 @@ export class ProfilePage extends AppMainPage {
     async getAlertMessageText(): Promise<string | null> {
         return await this.profileSaveAlert.textContent();
     }
+
     async getProfileWins(): Promise<string | null> {
         return await this.profileWinData.textContent();
     }

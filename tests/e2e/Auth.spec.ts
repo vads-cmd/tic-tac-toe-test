@@ -26,19 +26,19 @@ test.describe('Flow A: Authentication & Registration Tests', () => {
             playPage = await loginPage.register();
 
             await expect(playPage.board).toBeVisible();
-            await expect(playPage.userAvatar).toBeVisible();
-            await expect(playPage.userName).toBeVisible();
-            expect(await playPage.getUserGreeting()).toContain(player.name);
+            await expect(playPage.mainMenu.userAvatar).toBeVisible();
+            await expect(playPage.mainMenu.userName).toBeVisible();
+            expect(await playPage.mainMenu.getUserGreeting()).toContain(player.name);
 
-            loginPage = await playPage.logout();
+            loginPage = await playPage.mainMenu.logout();
             await loginPage.switchPageMode();
             await loginPage.enterName(player.name);
             await loginPage.login();
 
             await expect(playPage.board).toBeVisible();
-            await expect(playPage.userAvatar).toBeVisible();
-            await expect(playPage.userName).toBeVisible();
-            expect(await playPage.getUserGreeting()).toContain(player.name);
+            await expect(playPage.mainMenu.userAvatar).toBeVisible();
+            await expect(playPage.mainMenu.userName).toBeVisible();
+            expect(await playPage.mainMenu.getUserGreeting()).toContain(player.name);
         });
 
     test('Switching between Registration and Login modes',
@@ -64,7 +64,7 @@ test.describe('Flow A: Authentication & Registration Tests', () => {
             }
             await loginPage.enterName(player.name);
             playPage = await loginPage.register();
-            loginPage = await playPage.logout();
+            loginPage = await playPage.mainMenu.logout();
             if (await loginPage.checkPageType() != StartPageType.REGISTER) {
                 await loginPage.switchPageMode();
             }
